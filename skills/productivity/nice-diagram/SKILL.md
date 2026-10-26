@@ -13,14 +13,14 @@ The default is a **patio**: irregular boxes fitted together like paving stones, 
 
 - **Boxes sized by content.** Each box is a name plus concrete examples in parentheses (`"Feedback Sensors\n(Linters, Tests,\nFitness Fns)"`), wrapped with `\n` so no line runs past about 20 characters. Big ideas get big boxes.
 - **Staggered, never gridded.** Boxes sit offset from their neighbours, and the offsets are where edges and their labels live. Leave positions to tala rather than forcing rows and columns.
-- **Fills a rectangle.** 4 to 7 boxes whose overall footprint is close to a filled rectangle: no empty corners, no long tail. When the shape comes out lopsided, flip `direction` or reorder the declarations.
+- **Fills a rectangle.** 4 to 7 boxes whose overall footprint is close to a filled rectangle: no empty corners, no long tail. When the shape comes out lopsided, flip `direction` or reorder the declarations. A plain chain always lays out as a strip in either direction; snake it instead by pinning each box with tala's `top` and `left` (non-negative units, about 380 apart across and 220 down, nudged 20 to 60 off true so rows stagger): `lint: "Lint\n(eslint, tsc)" {top: 0; left: 440}`.
 - **Short, labelled edges.** A 2 to 4 word clause on every edge, wrapped with `\n`. Each edge bends at most once. Dashed edges (`style.stroke-dash: 5`) carry feedback, self-correction, and secondary flows; solid edges carry the main path.
 
 Comparing 3+ items across shared dimensions, or a 2×2 matrix, is a Markdown table instead.
 
 ## 2. Write the source
 
-Start every `.d2` file from this template, then add the diagram beneath it. The template is the default, not a cage: make small changes when the diagram needs them, such as `direction: down` for a tall pipeline, a different shape for a datastore or actor, or 8 boxes where 7 would split a real step. Keep the look itself (black on white, square corners, monospace italic) fixed.
+Start every `.d2` file from this template, then add the diagram beneath it. The template is the default, not a cage: make small changes when the diagram needs them, such as `direction: down` for a tall pipeline, a different shape for a datastore or actor, or 8 boxes where 7 would split a real step. Keep the look itself (black on white, square corners, monospace italic, the palette below) fixed.
 
 ```d2
 direction: right
@@ -62,6 +62,27 @@ style: {
 
 The `**` globs style nested boxes too; a single `*` leaves every tile inside a group in D2's default blue.
 
+### Color
+
+A diagram is black. Color marks the one or two elements the reader must not miss, and these five are the only colors allowed:
+
+| Color  | Hex       | Marks                                    |
+| ------ | --------- | ---------------------------------------- |
+| Orange | `#F35815` | The focal point: what to look at first   |
+| Red    | `#D92038` | Failure: an error, a broken step, a loss |
+| Blue   | `#144EB6` | A second highlight, distinct from orange |
+| Green  | `#13862E` | The healthy or success path              |
+| Gray   | `#818181` | Context: out of scope, inactive, faded   |
+
+Apply a color to both line and text, and leave the fill white:
+
+```d2
+stuck: "Stuck Transaction\n(idle in txn)" {style.stroke: "#F35815"; style.font-color: "#F35815"}
+agent -> codebase: edits {style.stroke: "#13862E"; style.font-color: "#13862E"}
+```
+
+Most diagrams carry one colored element, some two, and none uses them all. A failure that is also the focal point is red, not orange. When everything matters, nothing is colored.
+
 Use a **grid** (`grid-columns: N`, `grid-gap: 0` at every level) only for strict containment, like a folder tree or a layered stack, where perfect alignment is the point. Give every tile the same `width` and `height` so a wide group title can't inset its column. A grid draws no edges between its own tiles; connect outside boxes to the grid container itself.
 
 ## 3. Render to the destination's format
@@ -81,4 +102,4 @@ Use a **grid** (`grid-columns: N`, `grid-gap: 0` at every level) only for strict
 
 Inspect what you rendered before handing it over. For ASCII, read the `.txt`. For every other format, also render a PNG copy (`--scale=2`) and read the image.
 
-Done when you have seen the rendered diagram and every box is black on white, every label is readable and clear of lines and other labels, the boxes fill a rectangle with even gaps, and every edge routes short and clean. Until then, rework the source (reorder boxes, shorten labels, flip `direction`, move an edge's endpoint) and re-render.
+Done when you have seen the rendered diagram and every box is black on white apart from at most two elements in the palette, every label is readable and clear of lines and other labels, the boxes fill a rectangle with even gaps, and every edge routes short and clean. Until then, rework the source (reorder boxes, shorten labels, flip `direction`, move an edge's endpoint) and re-render.
