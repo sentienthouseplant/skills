@@ -1,0 +1,14 @@
+{
+  "name": "sentienthouseplant",
+  "owner": {
+    "name": "Jack Harrington"
+  },
+  "description": "Jack's skills, as an installable plugin.",
+  "plugins": [
+    {
+      "name": "jack-skills",
+      "source": "./",
+      "description": "Jack's agent skills."
+    }
+  ]
+}

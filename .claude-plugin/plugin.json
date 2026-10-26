@@ -1,0 +1,13 @@
+{
+  "name": "jack-skills",
+  "version": "0.1.0",
+  "description": "Jack's agent skills.",
+  "author": {
+    "name": "Jack Harrington"
+  },
+  "repository": "https://github.com/sentienthouseplant/skills",
+  "license": "MIT",
+  "skills": [
+    "./skills/productivity/nice-diagram"
+  ]
+}
